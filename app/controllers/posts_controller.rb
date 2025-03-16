@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, except: [:public, :show]
+  before_action :authenticate_user!, except: [:public, :list, :show]
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :check_owner, only: [:edit, :update, :destroy]
   before_action :check_owner_and_status, only: [:show]
@@ -14,7 +14,8 @@ class PostsController < ApplicationController
   end
 
   def list
-    @posts = current_user.posts.includes(:user, :sections).all
+    @posts = current_user.posts.includes(:user, :sections).all if current_user
+    @posts ||= Post.includes(:user, :sections).published
   end
 
   def new

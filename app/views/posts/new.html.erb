@@ -5,7 +5,7 @@
 
       <turbo-frame id="posts-test">
         This is inside a turbo frame in posts/new view<br>
-        <%= link_to "Back to posts", posts_path %>
+        <%= link_to "Back to posts", posts_path, data: { turbo: false } %>
       </turbo-frame>
 
       <%= render "posts/form", post: @post %>
