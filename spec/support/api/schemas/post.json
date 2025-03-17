@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "properties": {
+    "id": { "type": "number" },
+    "title": { "type": "string" },
+    "content": { "type": "string" },
+    "user": {
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" }
+      }
+    },
+    "status": { "type": "string" },
+    "created_at": { "type": "string" },
+    "updated_at": { "type": "string" }
+  }
+}

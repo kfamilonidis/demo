@@ -48,6 +48,7 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
 
   config.include Warden::Test::Helpers, type: :request
+  config.include Helpers
 
   # You can uncomment this line to turn off ActiveRecord support entirely.
   # config.use_active_record = false
