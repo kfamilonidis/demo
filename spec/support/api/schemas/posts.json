@@ -1,3 +1,7 @@
 {
-  "type": "array"
+  "type": "array",
+  "items": {
+    "type": "post",
+    "$ref": "post.json"
+  }
 }

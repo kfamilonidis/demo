@@ -1,4 +1,6 @@
 class Api::V1::PostsController < ApplicationController
+  # before_action :authenticate_api
+
   def index
     @posts = Post.all
 
@@ -10,4 +12,10 @@ class Api::V1::PostsController < ApplicationController
 
     render json: @post, serializer: PostSerializer
   end
+
+  private
+
+  # def authenticate_api
+  #   redirect_to root_url unless false
+  # end
 end

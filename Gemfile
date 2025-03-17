@@ -79,3 +79,5 @@ gem "bootstrap", "~> 5.3"
 gem "devise", "~> 4.9"
 
 gem "dotenv", "~> 3.1", groups: [:development, :test]
+
+gem "jwt", "~> 2.10"
