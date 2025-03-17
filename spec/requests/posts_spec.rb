@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "Posts", type: :request do
-  describe 'GET / (public)' do
+  context 'public' do
+      describe 'GET / (public)' do
     let!(:post) { create(:post, status: :published)}
     let!(:post_draft) { create(:post)}
 
@@ -25,16 +26,18 @@ RSpec.describe "Posts", type: :request do
       it "shows important sections first" do
         get post_path(post)
         expect(assigns(:post).sorted_sections.first).to be_a Section::Important
+        expect(response).to have_http_status(:found)
       end
     end
   end
 
+  end
   context 'User authorized' do
     include_context 'logged in user'
 
-    describe "GET /index" do
+    describe "GET /list" do
       it "returns a success response" do
-        get '/posts'
+        get '/list'
         expect(response).to have_http_status(:ok)
       end
 
@@ -42,7 +45,7 @@ RSpec.describe "Posts", type: :request do
         let!(:post) { create(:post, user: current_user) }
 
         it 'assigns draft posts' do
-          get '/posts'
+          get '/list'
           expect(assigns(:posts)).to match_array([post])
         end
       end
@@ -51,7 +54,7 @@ RSpec.describe "Posts", type: :request do
         let!(:post) { create(:post, status: :published, user: current_user) }
 
         it 'assigns published posts' do
-          get '/posts'
+          get '/list'
           expect(assigns(:posts)).to match_array([post])
         end
       end
@@ -62,7 +65,7 @@ RSpec.describe "Posts", type: :request do
         let!(:post) { create(:post, status: :draft, user: user) } # from ruby version 3.1+ user can be ommited
 
         it 'assigns no posts' do
-          get '/posts'
+          get '/list'
           expect(assigns(:posts)).not_to include post
         end
       end
