@@ -12,6 +12,12 @@ FactoryBot.define do
       end
     end
 
+    trait :with_comments do
+      after(:build) do |model|
+        create(:comment, commentable: model)
+      end
+    end
+
     trait :draft do
       status { :draft }
     end
