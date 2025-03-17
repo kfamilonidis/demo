@@ -2,36 +2,32 @@ require 'rails_helper'
 
 RSpec.describe "Posts", type: :request do
   context 'public' do
-      describe 'GET / (public)' do
-    let!(:post) { create(:post, status: :published)}
-    let!(:post_draft) { create(:post)}
+    describe 'GET / (public)' do
+      let!(:post) { create(:post, :published)}
+      let!(:post_draft) { create(:post)}
 
-    it "assigns published posts" do
-      get '/'
-      expect(assigns(:posts)).to match_array([post])
-    end
-  end
-
-  describe 'GET /post/1 (public)' do
-    context 'with Important sections' do
-      let(:post) do
-        create(:post,
-          sections: [
-            create(:section),
-            create(:section, :important)
-          ]
-        )
+      it "assigns published posts" do
+        get '/'
+        expect(assigns(:posts)).to match_array([post])
       end
+    end
 
-      it "shows important sections first" do
+    describe 'GET /post/1 (public)' do
+      let(:post) { create(:post) }
+      let(:draft) { create(:post, :draft) }
+
+      it "shows the post" do
         get post_path(post)
-        expect(assigns(:post).sorted_sections.first).to be_a Section::Important
         expect(response).to have_http_status(:found)
       end
+
+      it "redirects" do
+        get post_path(draft)
+        expect(response).to have_http_status(:redirect)
+      end
     end
   end
 
-  end
   context 'User authorized' do
     include_context 'logged in user'
 
@@ -51,7 +47,7 @@ RSpec.describe "Posts", type: :request do
       end
 
       context 'when published post' do
-        let!(:post) { create(:post, status: :published, user: current_user) }
+        let!(:post) { create(:post, :published, user: current_user) }
 
         it 'assigns published posts' do
           get '/list'
@@ -62,7 +58,7 @@ RSpec.describe "Posts", type: :request do
       context 'when other users post' do
         let(:user) { create(:user) }
 
-        let!(:post) { create(:post, status: :draft, user: user) } # from ruby version 3.1+ user can be ommited
+        let!(:post) { create(:post, :draft, user: user) } # from ruby version 3.1+ user can be ommited
 
         it 'assigns no posts' do
           get '/list'
