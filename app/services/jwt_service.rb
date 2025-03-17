@@ -7,7 +7,11 @@ class JwtService
     JWT.encode(payload, SECRETE_SALT)
   end
 
-  def self.decode
+  def self.decode(token)
+    decoded = JWT.decode(token, SECRETE_SALT)[0]
+    HashWithIndifferentAccess.new(decoded)
+  rescue JWT::DecodeError, JWT::ExpiredSignature
+    nil
   end
 
 end
