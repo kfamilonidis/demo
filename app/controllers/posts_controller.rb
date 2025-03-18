@@ -13,6 +13,10 @@ class PostsController < ApplicationController
 
   end
 
+  def by_week
+    @presenter = WeeksPresenter.new(date: params[:date], posts: Post.published)
+  end
+
   def list
     @posts = current_user.posts.includes(:user, :sections).page(params[:page]) if current_user
     @posts ||= Post.includes(:user, :sections).published
