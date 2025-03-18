@@ -1,0 +1,6 @@
+appartments:
+  - 1
+  - 2
+posts:
+  - title: 'Welcome'
+  - title: 'Warning'

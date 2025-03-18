@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :post do
-    title { 'Title' }
-    content { 'Content' }
+    title { Faker::Quote.matz }
+    content { Faker::Lorem.paragraph }
 
     user { association :user }
 
