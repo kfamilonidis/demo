@@ -24,9 +24,9 @@ RSpec.describe WeeksPresenter do
     let(:posts) { Post.all }
 
     before do
-      create(:post, created_at: Date.today - 3)
-      create(:post, created_at: Date.today - 1)
-      create(:post, created_at: Date.today)
+      create(:post, created_at: date - 3)
+      create(:post, created_at: date - 1)
+      create(:post, created_at: date)
     end
 
     it 'returns 2 keys' do
