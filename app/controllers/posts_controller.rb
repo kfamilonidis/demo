@@ -5,7 +5,7 @@ class PostsController < ApplicationController
   before_action :check_owner_and_status, only: [:show]
 
   def public
-    @posts = Post.includes(:user, :sections).published
+    @posts = Post.includes(:user, :sections).published.page(params[:page])
     render :index
   end
 
@@ -14,7 +14,7 @@ class PostsController < ApplicationController
   end
 
   def list
-    @posts = current_user.posts.includes(:user, :sections).all if current_user
+    @posts = current_user.posts.includes(:user, :sections).page(params[:page]) if current_user
     @posts ||= Post.includes(:user, :sections).published
   end
 

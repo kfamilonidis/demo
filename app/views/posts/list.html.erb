@@ -3,5 +3,6 @@
     <% @posts.each do |singe_post| %>
       <%= render "posts/post", post: singe_post %>
     <% end %>
+    <%= paginate @posts %>
   </div>
 <% end %>

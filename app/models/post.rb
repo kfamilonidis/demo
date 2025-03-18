@@ -3,6 +3,8 @@ class Post < ApplicationRecord
   has_many :sections, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
 
+  paginates_per 6
+
   def sorted_sections
     sections.sort { |a, b| Section::PRIORITY.index(a.type) <=> Section::PRIORITY.index(b.type) }
   end
